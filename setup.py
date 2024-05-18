@@ -22,7 +22,7 @@ def get_requirments(file_path:str)->List[str]:
     return requires
 
 setup(
-    name="ImageSearchEngineMT",
+    name="ImageSearchEngineFE",
     version="0.0.1",
     author="Nathan Kuissi",
     author_email="nategabrielk@icloud.com",
