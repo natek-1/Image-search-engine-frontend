@@ -1,4 +1,4 @@
-import from_root
+from from_root import from_root
 import os
 from dotenv import load_dotenv
 
