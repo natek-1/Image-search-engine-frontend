@@ -2,6 +2,7 @@ from from_root import from_root
 import os
 from dotenv import load_dotenv
 
+load_dotenv()
 
 
 class s3Config:
@@ -11,10 +12,10 @@ class s3Config:
         self.REGION = os.environ['AWS_REGION']
         self.BUCKET = os.environ['AWS_BUCKET_NAME']
         self.KEY = "model"
-        self.ZIP_NAME = "data.zip"
-        self.ZIP_PATHS = [(os.path.join(from_root(), "data", "embeddings", "embeddings.json"), "embeddings.json"),
-                          (os.path.join(from_root(), "data", "embeddings", "embeddings.ann"), "embeddings.ann"),
-                          (os.path.join(from_root(), "model", "finetuned", "model.pth"), "model.pth")]
+        self.ARTIFACTS_ROOT = os.path.join(from_root(), "artifacts")
+        self.ZIP_PATHS = ["embeddings.json",
+                          "embeddings.ann",
+                          "model.pth"]
         
     def get_s3config(self):
         return self.__dict__
