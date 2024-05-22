@@ -162,3 +162,4 @@ cython_debug/
 # env
 image-search-frontend
 artifacts
+data

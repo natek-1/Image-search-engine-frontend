@@ -33,7 +33,7 @@ class PredictConfig:
         self.PATH = os.path.join(from_root(), "artifacts")
         self.MODEL_PATHS = [(os.path.join(from_root(), "artifacts", "embeddings.json"), "embeddings.json"),
                           (os.path.join(from_root(), "artifacts", "embeddings.ann"), "embeddings.ann"),
-                          (os.path.join(from_root(), "model", "model.pth"), "model.pth")]
+                          (os.path.join(from_root(), "artifacts", "model.pth"), "model.pth")]
         self.MEAN = [0.485, 0.456, 0.406]
         self.STD = [0.229, 0.224, 0.225]
     

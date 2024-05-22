@@ -30,10 +30,11 @@ class Prediction:
             self.device = "cuda"
         
         self.ann = CustomAnnoy(self.config.EMBEDDING_SIZE,
-                               self.config.MODEL_PATHS)
-        self.ann.load(self.config.MODEL_PATHS[0][0])
+                               self.config.SEARCH_MATRIX)
+        self.ann.load(self.config.MODEL_PATHS[1][0])
         self.estimator: torch.nn.Module = self.load_model()
         self.estimator.eval()
+        self.estimator = self.estimator.to(self.device)
         self.transforms = self.transformations()
     
     def transformations(self) -> transforms.Compose:
@@ -55,7 +56,7 @@ class Prediction:
 
     def load_model(self) -> torch.nn.Module:
         model = NeuralNet()
-        model.load_state_dict(self.config.MODEL_PATHS[1][0], map_location =self.device)
+        model.load_state_dict(torch.load(self.config.MODEL_PATHS[2][0], map_location=self.device))
         return nn.Sequential(*list(model.children())[:-1])
 
     @staticmethod
@@ -66,7 +67,9 @@ class Prediction:
             connection.get_package()
     
     def generate_embeddings(self, image: torch.tensor):
-        embeddings = self.estimator(image.to(self.device))
+        image = image.to(self.device)
+        with torch.inference_mode():
+            embeddings = self.estimator(image.to(self.device))
         embeddings = embeddings.detach().cpu().numpy()
         return embeddings
     
